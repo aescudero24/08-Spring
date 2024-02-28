@@ -56,4 +56,9 @@ public class CustomerService {
             customer.setPhone(phone);
         }
     }
+
+    public Customer getCustomerById(Long customerId) {
+        return customerRepository.findById(customerId)
+                .orElseThrow(() -> new IllegalStateException("No Such Customer With Id " + customerId + " Exists"));
+    }
 }
