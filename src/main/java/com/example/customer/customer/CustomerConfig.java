@@ -11,12 +11,13 @@ import java.util.List;
 public class CustomerConfig {
 
     @Bean
-    CommandLineRunner commandLineRunner(CustomerRepository repository) {
+    CommandLineRunner customerCommandLineRunner(CustomerRepository repository) {
         return args -> {
             Customer adrian = new Customer("Adrian", "123456", LocalDate.of(2005,6,13));
             Customer mina = new Customer("Mina", "112233", LocalDate.of(2005,7,18));
+            Customer idk = new Customer("IDK", "000001", LocalDate.of(1999, 12, 31));
 
-            repository.saveAll(List.of(adrian, mina));
+            repository.saveAll(List.of(adrian, mina, idk));
         };
     }
 }

@@ -1,9 +1,13 @@
 package com.example.customer.customer;
 
+import com.example.customer.order.Order;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table
@@ -19,7 +23,11 @@ public class Customer {
             generator = "customer_sequence"
     )
     private Long id;
-    private String name;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer")
+    private Set<Order> orders = new HashSet<>();
+    private String customer_name;
     private String phone;
     private LocalDate dob;
     @Transient
@@ -28,16 +36,15 @@ public class Customer {
     public Customer() {
     }
 
-
-    public Customer(Long id, String name, String phone, LocalDate dob) {
+    public Customer(Long id, String customer_name, String phone, LocalDate dob) {
         this.id = id;
-        this.name = name;
+        this.customer_name = customer_name;
         this.phone = phone;
         this.dob = dob;
     }
 
-    public Customer(String name, String phone, LocalDate dob) {
-        this.name = name;
+    public Customer(String customer_name, String phone, LocalDate dob) {
+        this.customer_name = customer_name;
         this.phone = phone;
         this.dob = dob;
     }
@@ -50,12 +57,12 @@ public class Customer {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getCustomer_name() {
+        return customer_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomer_name(String customer_name) {
+        this.customer_name = customer_name;
     }
 
     public String getPhone() {
@@ -86,7 +93,7 @@ public class Customer {
     public String toString() {
         return "Customer{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + customer_name + '\'' +
                 ", email='" + phone + '\'' +
                 ", dob=" + dob +
                 ", age=" + age +
